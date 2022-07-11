@@ -1,0 +1,23 @@
+// Colors
+$light1: #FFE9CF;
+$light2: #f3d4b1;
+$light3: #725946;
+$light4: #627B83;
+
+$dark1: #005161;
+$dark2: #0D3542;
+
+$active_valid: #378139;
+$delete_error: #b30f0f;
+$idle: #FFAD27;
+
+$checkbox-width: 18px;
+
+
+// Helper Functions
+@mixin flexDisplay($alignDir, $justifyDir, $flexDir) {
+   display: flex;
+   align-items: $alignDir;
+   justify-content: $justifyDir;
+   flex-direction: $flexDir;
+}

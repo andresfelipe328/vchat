@@ -1,0 +1,53 @@
+// Imports
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import "./appContents";
+
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   scroll-behavior: smooth;
+   font-family: 'Space Grotesk', sans-serif;
+}
+
+::-webkit-scrollbar-track {
+   background-color: rgba(245, 222, 179, .9);
+   border-radius: .32rem;
+}
+
+::-webkit-scrollbar {
+   width: .25rem;
+}
+ 
+::-webkit-scrollbar-thumb {
+   background-color: rgba(114,89,70, .5);
+   border-radius: .32rem;
+}
+
+#root {
+   @include flexDisplay(center, center, row);
+   width: 100%;
+   height: 100vh;
+   background-color: $light1;
+}
+
+button {
+   border: none;
+   outline: none;
+   cursor: pointer;
+   background-color: transparent;
+}
+
+a {
+   text-decoration: none;
+}
+
+ul, li {
+   list-style: none;
+}
+
+input {
+   border: none;
+   outline: none;
+}

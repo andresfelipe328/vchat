@@ -1,0 +1,3397 @@
+// VarFuncts
+@import "./varsFuncts";
+
+.app {
+   @include flexDisplay(flex-start, flex-start, column);
+   background-color: $light1;
+   gap: 1rem;
+   padding: 1rem;
+   width: 100%;
+   height: 100vh;
+   overflow-x: hidden;
+   overflow-y: hidden;
+
+   .app-wrapper {
+      flex: 1;
+      width: 100%;
+      height: calc(100% - 35px);
+      display: flex;
+      position: relative;
+      border-radius: .32rem;
+      background-color: $light1;
+
+      // Global form wrapper
+      .form-wrapper {
+         @include flexDisplay(center, flex-start, row);
+         background-color: $light1;
+         position: relative;
+         border-radius: .32rem;
+         padding: .5rem;
+         width: 100%;
+         gap: .25rem;
+         transition: all .25s ease-out;
+         box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+         .search-icon {
+            opacity: .85;
+            color: $light3;
+            right: .5rem;
+         }
+      }
+
+      // Sidebar 
+      .sidebar-container {
+         width: 4.75rem;
+         background-color: $light2;
+         border-radius: .32rem;
+         height: 100%;
+         z-index: 4;
+         opacity: 0;
+         transform: translateX(-1.875rem);
+
+         .sidebar-wrapper {
+            @include flexDisplay(center, flex-start, column);
+            padding-top: .5rem;
+            height: 100%;
+            border-radius: .32rem;
+            box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+            // Sidebar Head
+            .head {
+               gap: .25rem;
+               @include flexDisplay(center, center, column);
+               padding-bottom: .5rem;
+               width: 100%;
+               border-bottom: 2px solid rgba(114,89,70, 0.5);
+
+               .app-title {
+                  text-transform: lowercase;
+                  text-align: center;
+                  color: $light3;
+               }
+
+               .toHome-link {
+                  @include flexDisplay(center, center, row);
+                  width: 3.25rem;
+                  height: 3.25rem;
+                  border-radius: 50%;
+                  background-color: $light4;
+                  transition: all .25s ease-in-out;
+
+                  .app-logo {
+                     width: 2.5rem;
+                     height: 2.5rem;
+                  }
+
+                  &:hover {
+                     border-radius: 25%;
+                  }
+               }
+            }
+
+            // Sidebar Room Listing
+            .roomListing-container {
+               flex: 1;
+               margin: .5rem 0rem;
+               height: 100%;
+               width: 100%;
+               overflow-y: auto;
+               
+               .room-listing {
+                  display: flex;
+                  flex-direction: column;
+                  gap: .75rem;
+               }
+            }
+
+            .room, .link {
+               @include flexDisplay(center, center, row);
+               transition: all .25s ease-in-out;
+               position: relative;
+
+               .room-link {
+                  @include flexDisplay(center, center, row);
+                  transition: all .25s ease-in-out;
+
+                  .room-icon {
+                     width: 3.25rem;
+                     height: 3.25rem;
+                     border-radius: 50%;
+                     border: 2.35px solid $light1;
+                     object-fit:cover;
+                     transition: all .25s ease-in-out;
+                  }
+               }
+
+               .current {
+                  position: absolute;
+                  z-index: 20;
+                  content: '';
+                  width: .95rem;
+                  height: .95rem;
+                  right: .35rem;
+                  border-radius: 50%;
+                  border: 2px solid $light1;
+                  background-color: $light3;
+                  transform: scale(0);
+                  transition: transform ease-in-out .1s;
+               }
+
+               .create, .navigate {
+                  @include flexDisplay(center, center, row);
+                  width: 3.25rem;
+                  height: 3.25rem;
+                  border-radius: 50%;
+                  background-color: $light1;
+                  border: 2px solid $light1;
+                  color: $light3;
+                  transition: all .25s ease-in-out;
+               }
+
+               &:hover {
+                  border-radius: 25%;
+
+
+                  .current {
+                        transform: scale(1);
+                     }
+
+                  .room-link, .create, .navigate {
+                     border-radius: 25%;
+
+                     .room-icon {
+                        border-radius: 25%;  
+                     }
+                  }
+
+                  .create, .navigate {
+                     background-color: $light3;
+                     color: $light1;
+                  }
+               }
+
+               .curr {
+                  transform: scale(1);
+               }
+            }
+
+            // Sidebar User Icon
+            .user-container {
+               @include flexDisplay(center, flex-start, column);
+               gap: .5rem;
+               width: 100%;
+               position: relative;
+               border-top: 2px solid rgba(114,89,70, 0.5);
+
+               .link-create {
+                  margin-top: .5rem;
+               }
+
+               .login-link {
+                  @include flexDisplay(center, center, row);
+                  margin: .5rem 0rem .5rem 0rem;
+                  transition: all .25s ease-in-out;
+
+                  .login-icon {
+                     width: 3.25rem;
+                     height: 3.25rem;
+                     border-radius: 50%;
+                     background-color: $light1;
+                     color: $light3;
+                     transition: all .25s ease-in-out;
+                  }
+
+                  &:hover {
+                     border-radius: 25%;
+
+                     .login-icon {
+                        color: $light1;
+                        background-color: $light3;
+                        border-radius: 25%;
+                     }
+                  }
+               }
+
+               .userStatus-list {
+
+                  .userStatus-btn {
+                     transition: all .25s ease-in-out;
+
+                     .user-btn {
+                        @include flexDisplay(center, center, row);
+                        margin: 0rem 0rem .5rem 0rem;
+                        position: relative;
+                        transition: all .25s ease-in-out;
+
+                        .status-indicator {
+                           width: 1rem;
+                           height: 1rem;
+                           border-radius: 50%;
+                           position: absolute;
+                           bottom: 0;
+                           right: -.05rem;
+                           border: 2px solid $light1;
+                           background-color: $active_valid;
+                           transition: all .25s ease-in-out;
+                        }
+
+                        .loading-icon {
+                           margin-top: .5rem;
+                           width: 3.25rem;
+                           height: 3.25rem;
+                           border-radius: 50%;
+                        }
+   
+                        .user-icon {
+                           width: 3.25rem;
+                           height: 3.25rem;
+                           border-radius: 50%;
+                           border: 2px solid $light1;
+                           object-fit:cover;
+                           transition: all .25s ease-in-out;
+                        }
+                     }
+
+                     .status-list {
+                        position: absolute;
+                        display: flex;
+                        flex-direction: column;
+                        background-color: $light2;
+                        padding: .75rem;
+                        bottom: 0;
+                        // border-left: 2px solid rgba(114,89,70, 0.5);
+                        right: -8.5rem;
+                        width: fit-content;
+                        overflow-x: hidden;
+                        border-radius: 0rem .32rem .32rem 0rem;
+                        transition: all .25s ease-in-out;
+                        opacity: 0;
+                        visibility: hidden;
+                        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                        .status {
+                           display: flex;
+                           align-items: center;
+                           gap: .5rem;
+                           transition: all .25s ease-in-out;
+                           border-radius: .32rem;
+
+                           .status-btn {
+                              color: $light3;
+                              font-weight: bolder;
+                              padding: .75rem;
+                              width: 100%;
+                              height: 100%;
+                              background-color: transparent;
+                              @include flexDisplay(center, flex-start, row);
+                              gap: .75rem;
+
+                              .status-icon {
+                                 margin-left: .5rem;
+                                 font-size: 1rem;
+                              }
+                           }
+
+                           &:hover {
+                              background-color: $light1;
+                              .status-btn {
+                                 color: $light3;
+                              }
+                           }
+                        }
+
+                        .logout {
+                           background-color: $light3;
+                           color: $light1;
+
+                           .logout-btn {
+                              color: $light1;
+                           }
+
+                           &:hover {
+                              color: $light3;
+                           }
+                        }
+                     }
+
+                     &:hover {
+                        .user-btn {
+                           border-radius: 25%;
+                        }
+                        
+                        .user-icon {
+                           border-radius: 25%;
+                        }
+
+                        .status-list {
+                           opacity: 1;
+                           visibility: visible;
+                        }
+                     }
+                  }
+               }
+            }
+         }
+
+         @media screen and (max-width: 425px) {
+            .sidebar-wrapper {
+               .head {
+                  .app-title {
+                     font-size: .75rem;
+                  }
+
+                  .toHome-link {
+                     width: 2.5rem;
+                     height: 2.5rem;
+   
+                     .app-logo {
+                        width: 2.1rem;
+                        height: 2.1rem;
+                     }
+                  }
+               }
+
+               .room {
+                  .room-link .room-icon {
+                     width: 2.5rem;
+                     height: 2.5rem;
+                  }
+
+                  .current {
+                     width: .85rem;
+                     height: .85rem;
+                     right: .5rem;
+                  }
+               }
+
+               .link .create, .link .navigate {
+                  width: 2.5rem;
+                  height: 2.5rem;
+               }
+
+               .user-container .login-link .login-icon, .user-container .userStatus-list .userStatus-btn .user-btn .user-icon {
+                  width: 2.5rem;
+                  height: 2.5rem;
+               }
+            }
+         }
+      }
+
+      // Help
+      .help-container {
+         @include flexDisplay(flex-start, flex-start, column);
+         width: 100%;
+         min-height: 600px;
+         margin-left: 1rem;
+         border-radius: .32rem;
+         background-color: $light1;
+         background-image: url('../img/backgrounds/info-bg.svg');
+         background-size: cover;
+         transform: translateX(-50px);
+         opacity: 0;
+         
+         .help-head {
+            @include flexDisplay(center, flex-start, row);
+            margin: 1rem 0rem;
+            gap: .5rem;
+            color: $light3;
+
+            .help-icon {
+               font-size: calc(.85rem + 2vmin);
+            }
+
+            .help-title {
+               font-size: calc(.5rem + 2vmin);
+               text-transform: uppercase;
+            }
+         }
+
+         .img-container {
+            @include flexDisplay(center, center, row);
+            gap: 1rem;
+            width: 100%;
+            transform: translateX(-50px);
+            opacity: 0;
+
+            .help-group {
+               @include flexDisplay(center, center, row);
+               box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+               background-color: $light1;
+               border-radius: .32rem;
+               padding: .5rem;
+               position: relative;
+               cursor: pointer;
+               
+               &::after {
+                  opacity: 0;
+                  content: '';
+                  position: absolute;
+                  width: 100%;
+                  height: 100%;
+                  
+                  border-radius: .32rem;
+                  background-color: rgba(114,89,70, .9);
+                  transition: all .25s ease-in-out;
+               }
+
+               .help-img {
+                  width: 25vmin;
+                  height: 25vmin;
+               }
+
+               .help-p {
+                  position: absolute;
+                  text-align: center;
+                  color: $light1;
+                  padding: .5rem;
+                  z-index: 10;
+                  opacity: 0;
+                  transition: all .25s ease-in-out;
+               }
+
+               &:hover::after {
+                  opacity: 1;
+               }
+
+               &:hover {
+                  .help-p {
+                     opacity: 1;
+                  }
+               }
+            }
+         }
+
+         .helpSteps-container {
+            @include flexDisplay(center, flex-start, column);
+            width: 90%;
+            margin: auto;
+            margin-top: 1rem;
+
+            .help-steps {
+               @include flexDisplay(flex-start, flex-start, column);
+               color: $dark2;
+               gap: .5rem;
+               
+               .step {
+                  position: relative;
+                  width: 100%;
+                  background-color: $light2;
+                  padding: .5rem;
+                  border-radius: .32rem;
+                  opacity: 0;
+                  transform: translateX(-50px);
+
+                  &::before {
+                     content: '';
+                     position: absolute;
+                     width: .5rem;
+                     height: .5rem;
+                     left: -1rem;
+                     top: 1rem;
+                     border-radius: 50%;
+                     background-color: $light3;
+                  }
+
+                  .sublist {
+                     margin-left: .2rem;
+                     @include flexDisplay(flex-start, flex-start, column);
+                     gap: .5rem;
+
+                     .status, .channel {
+                        @include flexDisplay(center, flex-start, row);
+                        gap: .75rem;
+
+                        span {
+                           font-weight: bolder;
+                        }
+
+                        .active {
+                           color: $active_valid;
+                        }
+                        .idle {
+                           color: $idle;
+                        }
+                        .busy {
+                           color: $delete_error;
+                        }
+                        .invisible {
+                           color: $light4;
+                        }
+                     }
+                  }
+               }
+
+               .create, .navigate {
+                  display: flex;
+                  align-items: center;
+                  gap: 1rem;
+
+                  span {
+                     @include flexDisplay(center, center, row);
+                     width: 2rem;
+                     height: 2rem;
+                     border-radius: 50%;
+                     background-color: $light1;
+                     color: $light3;
+                  }
+               }
+
+            }
+         }
+
+         @media screen and (max-width: 768px) {
+            justify-content: center;
+            .img-container {
+               display: none;
+            }
+
+            .helpSteps-container {
+               flex: 1;
+               justify-content: center;
+            }
+         }
+      }
+
+      // Authentication
+      .auth-wrapper {
+         @include flexDisplay(center, center, row);
+         width: 100%;
+         background-image: url('../img/backgrounds/auth-bg.svg');
+         border-radius: .32rem;
+         background-size: cover;
+
+         .landing-container {
+            opacity: 0;
+            transform: translateY(-50px);
+            @include flexDisplay(center, center, column);
+            gap: 1rem;
+            margin: 0rem 1rem;
+
+            .login-img {
+               width: 50vmin;
+            }
+
+            .landing-p {
+               text-align: center;
+               color: $light3;
+               display: inline-block;
+               font-size: .95rem;
+   
+               .login-icon {
+                  font-size: 1.25rem;
+                  color: $light3;
+                  transform: translateY(.35rem);
+               }
+            }
+         }
+
+         .login-container, .register-container {
+            @include flexDisplay(flex-start, flex-start, column);
+            width: 315px;
+            gap: 1rem;
+            margin-left: .5rem;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+            padding: 1.5rem 2.5rem;
+            border-radius: .32rem;
+            background-color: $light1;
+            opacity: 0;
+            transform: translateY(-1.875rem);
+
+            .head {
+               .log-title, .reg-title {
+                  color: $dark2;
+               } 
+            }
+
+            .err-msg {
+               text-align: center;
+               padding: .25rem;
+               border-radius: .32rem;
+               background-color: $delete_error;
+               color: $light1;
+               font-size: smaller;
+            }
+
+            .reg-form, .log-form {
+               @include flexDisplay(flex-start, flex-start, column);
+               width: 100%;
+         
+               .pwd-group {
+                  @include flexDisplay(center, flex-start, row);
+                  gap: .5rem;
+         
+                  .fa-check-circle {
+                     color: $active_valid;
+                  }
+         
+                  .fa-times-circle {
+                     color: $delete_error;
+                  }
+               }
+         
+               .reg-label, .log-label {
+                  margin-bottom: .25rem;
+                  color: $light3;
+                  font-weight: bolder;
+               }
+         
+               .reg-input, .log-input {
+                  margin-bottom: 1rem;
+                  border-radius: .32rem;
+                  padding: .5rem;
+                  width: 100%;
+                  color: $dark2;
+                  font-weight: bolder;
+                  text-transform: lowercase;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                  transition: all .25s ease-out;
+   
+                  &:focus {
+                     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                  }
+               }
+         
+               .reg-btn, .log-btn {
+                  width: 100%;
+                  padding: .5rem 0rem;
+                  border-radius: .32rem;
+                  background-color: $light4;
+                  color:$light1;
+                  transition: all .25s ease-in-out;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+         
+                  &:hover {
+                     background-color: $dark2;
+                     color: $light1;
+                  }
+               }
+         
+               .inst {
+                  font-size: smaller;
+                  margin-bottom: .5rem;
+                  padding: .25rem;
+                  border-radius: .32rem;
+                  background-color: $light2;
+                  color: $light3;
+                  font-weight: 600;
+               }
+         
+               .offscreen {
+                  position: absolute;
+                  left: -9999px;
+               }
+            }
+
+            .toLogin, .toReg {
+               @include flexDisplay(center, flex-start, column);
+               border-top: 1px solid #000;
+               padding-top: .5rem;
+               width: 100%;
+         
+               .toLogin-link, .toReg-link {
+                  text-decoration: none;
+                  padding: .5rem .75rem;
+                  margin-top: .5rem;
+                  border-radius: .32rem;
+                  background-color: $dark2;
+                  color:$light1;
+                  font-size: smaller;
+                  transition: all .25s ease-in-out;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+         
+                  &:hover {
+                     background-color: $light4;
+                     color: $light1;
+                  }
+               }
+            }
+         }
+      }
+      .updateAccount-wrapper {
+         @include flexDisplay(center, center, row);
+         width: 100%;
+         background-image: url('../img/backgrounds/auth-bg.svg');
+         border-radius: .32rem;
+         background-size: cover;
+
+         .updateAccount-container {
+            display: flex;
+            flex-direction: column;
+            width: 461.78px;
+            gap: 1rem;
+            box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+            padding: 1.5rem 2.5rem;
+            border-radius: .32rem;
+            opacity: 0;
+            background-color: $light1;
+            transform: translateY(-1.875rem);
+   
+            .head {
+               .acc-title {
+                  color: $light3;
+               } 
+            }
+   
+            .err-msg {
+               text-align: center;
+               padding: .25rem;
+               border-radius: .32rem;
+               background-color: $delete_error;
+               font-size: smaller;
+            } 
+         
+            .acc-form {
+               display: flex;
+               flex-direction: column;
+   
+               .accImg-wrapper {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-bottom: 1rem;
+   
+                  .accImg-container {
+                     width: 5rem;
+                     height: 5rem;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     background-color: $light2;
+                     border-radius: 50%;
+                     position: relative;
+   
+                     .acc-img {
+                        width: 4.5rem;
+                        height: 4.5rem;
+                        object-fit:cover;
+                        border-radius: 50%;
+                     }
+   
+                     .accImg-input {
+                        position: absolute;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        bottom: -.5rem;
+                        left: 3.25rem;
+                        background-color: $light3;
+                        width: 2rem;
+                        height: 2rem;
+                        padding: .5rem;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        transition: all .25s ease-in-out;
+
+                        &::after {
+                           content: '';
+                           top: -.12rem;
+                           left: -.12rem;
+                           position: absolute;
+                           width: 1.95rem;
+                           height: 1.95rem;
+                           border-radius: 50%;
+                           border: 2.5px solid $light1;
+                        }
+   
+                        .img-input {
+                           font-size: 1.5rem;
+                           color: $light1;
+                        }
+   
+                        &:hover {
+                           transform: scale(1.15);
+                        }
+                     }
+                  }
+               }
+         
+               .acc-label {
+                  margin-bottom: .25rem;
+                  color: $light3;
+                  font-weight: bolder;
+               }
+         
+               .acc-input {
+                  margin-bottom: 1rem;
+                  outline: none;
+                  border: none;
+                  border-radius: .32rem;
+                  padding: .5rem;
+                  color: $light3;
+                  font-weight: 600;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                  transition: all .25s ease-out;
+   
+                  &:focus {
+                     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                  }
+               }
+         
+               .acc-btn {
+                  outline: none;
+                  border: none;
+                  padding: .5rem 0rem;
+                  border-radius: .32rem;
+                  background-color: $light4;
+                  color:$light1;
+                  transition: all .25s ease-in-out;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+         
+                  &:hover {
+                     background-color: $dark2;
+                  }
+               }
+         
+               .inst {
+                  font-size: smaller;
+                  margin-bottom: .5rem;
+                  padding: .25rem;
+                  border-radius: .32rem;
+                  background-color: $light2;
+                  color: $light3;
+                  font-weight: 600;
+               }
+         
+               .offscreen {
+                  position: absolute;
+                  left: -9999px;
+               }
+            }
+         }
+      }
+
+      // CreateRoomPopup
+      .createRoom-wrapper {
+         @include flexDisplay(center, center, row);
+         width: 100%;
+         height: 100%;
+         position: absolute;
+         bottom: 0;
+         left: 0;
+         z-index: -1;
+         border-radius: .32rem;
+         opacity: 0;
+         transform: translateY(-10px);
+         transform-origin: bottom;
+         background-color: rgba(177, 153, 108, 0.9);
+
+         .createRoom-container {
+            background-color: $light1;
+            border-radius: .32rem;
+            padding: 1.5rem 2.5rem;
+            box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-10px);
+
+            .close {
+               position: absolute;
+               border: none;
+               outline: none;
+               background-color: transparent;
+               cursor: pointer;
+               top: .5rem;
+               right: .5rem;
+
+               .close-icon {
+                  transition: all .25s ease-out;
+                  color: $light3;
+
+                  &:hover {
+                     color: $light4;
+                  }
+               }
+            }
+
+            .createRoom-head {
+               margin-bottom: 1rem;
+               .createRoom-title {
+                  color: $dark2;
+               }
+               
+               .createRoom-p {
+                  text-align: center;
+               }
+            }
+
+            .err-msg {
+               text-align: center;
+               padding: .25rem .5rem;
+               margin-bottom: .5rem;
+               border-radius: .32rem;
+               color: $light1;
+               background-color: $delete_error;
+               font-size: smaller;
+            }
+
+            .createRoom-form {
+               display: flex;
+               flex-direction: column;
+               gap: .25rem;
+
+               .roomImg-wrapper {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  margin-bottom: 1rem;
+
+                  .roomImg-container {
+                     width: 5rem;
+                     height: 5rem;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     background-color: $dark2;
+                     border-radius: 50%;
+                     position: relative;
+
+                     .room-img {
+                        width: 4.5rem;
+                        height: 4.5rem;
+                        object-fit:cover;
+                        border-radius: 50%;
+                     }
+
+                     .roomImg-input {
+                        position: absolute;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        bottom: -.5rem;
+                        left: 3.25rem;
+                        background-color: $light3;
+                        width: 2rem;
+                        height: 2rem;
+                        padding: .5rem;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        transition: all .25s ease-in-out;
+
+                        .img-input {
+                           font-size: 1.5rem;
+                           color: $light1;
+                        }
+
+                        &:hover {
+                           transform: scale(1.15);
+                        }
+                     }
+                  }
+               }
+
+               .createRoom-label {
+                  margin-bottom: .25rem;
+                  color: $light3;
+                  font-weight: bolder;
+               }
+
+               .createRoom-input {
+                  margin-bottom: 1rem;
+                  outline: none;
+                  border: none;
+                  border-radius: .32rem;
+                  padding: .5rem;
+                  color: $light3;
+                  font-weight: 500;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                  transition: all .25s ease-out;
+   
+                  &::placeholder {
+                     color: $light3;
+                     opacity: .75;
+                     font-weight: 500;
+                  }
+                  
+                  &:focus {
+                     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+                  }
+               }
+
+               .createRoom-btn {
+                  outline: none;
+                  border: none;
+                  padding: .5rem 0rem;
+                  border-radius: .32rem;
+                  background-color: $light4;
+                  color:$light1;
+                  transition: all .25s ease-in-out;
+                  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+         
+                  &:hover {
+                     background-color: $dark2;
+                     color: $light1;
+                  }
+               }
+            }
+         }
+      }
+
+      // Home
+      .home-container {
+         width: 100%;
+         
+         .dmMgmt-activity-wrapper {
+            display: flex;
+            height: 100%;
+
+            .dm-popup, .roomInvite-wrapper, .pinnedMsg-wrapper {
+               position: absolute;
+               bottom: -15.5rem;
+               right: -16.5rem;
+               width: 285px;
+               height: 270px;
+               z-index: 2;
+               padding: .5rem;
+               background-color: $light2;
+               border-radius: .32rem;
+               overflow-y: auto;
+
+               transform: translateY(-50px);
+               opacity: 0;
+               pointer-events: none;
+               
+               box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+               .createDm-title, small {
+                  color: $light3;
+               }
+
+               .closePopup-btn {
+                  position: absolute;
+                  top: .35rem;
+                  right: .5rem;
+
+                  .close-popup {
+                     font-size: 1.65rem;
+                     color: $light4;
+                     transition: all .25s ease-in-out;
+
+                     &:hover {
+                        color: $light3;
+                     }
+                  }
+               }
+
+               .dmCreate-form {
+                  @include flexDisplay(center, flex-start, column);
+                  gap: .5rem;
+                  margin-top: .5rem;
+
+                  .dm-input {
+                     width: 100%;
+                     background-color: $light1;
+                     border-radius: .32rem;
+                     padding: .25rem;
+                     color: $light3;
+                     font-weight: 500;
+
+                     &::placeholder {
+                        opacity: .8;
+                     }
+                  }
+
+                  .dm-inviteLimit {
+                     color: $light3;
+                     font-size: .75rem;
+                     font-weight: 600;
+                     opacity: .65;
+                  }
+
+                  .dmFriendsAdded-wrapper {
+                     @include flexDisplay(flex-start, flex-start, row);
+                     gap: .45rem;
+                     flex-wrap: wrap;
+                     width: 100%;
+
+                     .dmFriend {
+                        padding: .15rem .25rem;
+                        border-radius: .32rem;
+                        background-color: $light1;
+                        color: $light3;
+                        opacity: .75;
+                        font-size: .8rem;
+                        font-weight: 500;
+                     }
+                  }
+
+                  .selectFriend-wrapper {
+                     width: 100%;
+                     // height: 155px;
+                     // overflow-y: auto;
+
+                     .dmFriend-list {
+                        @include flexDisplay(flex-start, flex-start, column);
+                        padding: 0rem .25rem .25rem .25rem;
+
+                        .friend {
+                           @include flexDisplay(center, flex-start, row);
+                           gap: 1rem;
+                           width: 100%;
+                           padding: .5rem;
+                           border-radius: .32rem;
+                           transition: all .25s ease-in-out;
+
+                           .friendIcon-wrapper {
+                              @include flexDisplay(center, flex-start, row);
+                              gap: .75rem;
+                              flex: 1;
+
+                              .friendIcon-container {
+                                 @include flexDisplay(center, center, row);
+                                 position: relative;
+
+                                 .friend-icon {
+                                    width: 2.8rem;
+                                    height: 2.8rem;
+                                    border-radius: 50%;
+                                    object-fit:cover;
+                                    background-color: $dark1;
+                                    border: 1.75px solid $light1;
+                                 }
+
+                                 .status-icon {
+                                    position: absolute;
+                                    width: 1rem;
+                                    height: 1rem;
+                                    bottom: .1rem;
+                                    right: -.2rem;
+                                    border-radius: 50%;
+                                    border: 2px solid $light1;
+                                 }
+                              }
+
+                              .friend-username {
+                                 color: $light3;
+                                 font-size: .95rem;
+                                 font-weight: 500;
+                              }
+                           }
+
+                           &:hover {
+                              box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                           }
+                        }
+
+                        .container {
+                           margin-left: auto;
+                           position: relative;
+                           cursor: pointer;
+                           -webkit-user-select: none;
+                           -moz-user-select: none;
+                           -ms-user-select: none;
+                           user-select: none;
+
+                           .select-friend {
+                              position: absolute;
+                              opacity: 0;
+                              cursor: pointer;
+                              height: 0;
+                              width: 0;
+                           }
+
+                           .checkmark {
+                              position: absolute;
+                              bottom: -.7rem;
+                              left: -2.5rem;
+                              height: 25px;
+                              width: 25px;
+                              border-radius: .32rem;
+                              background-color: $light1;
+                              transition: all .25s ease-in-out;
+
+                              &::after {
+                                 content: "";
+                                 position: absolute;
+                                 display: none;
+                              }
+                           }
+
+                           .select-friend:checked ~ .checkmark {
+                              background-color: $light4;
+                           }
+
+                           & input:checked ~ .checkmark::after {
+                              display: block;
+                           }
+
+                           & .checkmark::after {
+                              left: 9px;
+                              top: 5px;
+                              width: 5px;
+                              height: 10px;
+                              border: solid $light1;
+                              border-width: 0 3px 3px 0;
+                              border-radius: .05rem;
+                              -webkit-transform: rotate(45deg);
+                              -ms-transform: rotate(45deg);
+                              transform: rotate(45deg);
+                           }
+
+                           &:hover {
+                              .checkmark {
+                                 background-color: $light4;
+                              }
+                           }
+                        }
+
+                        .joined {
+                           border-radius: .32rem;
+                           font-size: .85rem;
+                           padding: .25rem;
+                           color: $light3;
+                           background-color: $light1;
+                           opacity: .65;
+                           font-weight: 500;
+                        }
+                     }
+                  }
+
+                  .dmCreate-btn {
+                     padding: .25rem 1rem;
+                     border-radius: .32rem;
+                     background-color: $light4;
+                     color:$light1;
+                     transition: all .25s ease-in-out;
+                     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+            
+                     &:hover {
+                        background-color: $dark2;
+                        color: $light1;
+                     }
+                  }
+               }
+            }
+
+            .dmMgmt-roomMgmt-container {
+               background-color: $light2;
+               width: 15rem;
+               height: 100%;
+               z-index: 3;
+               box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+               opacity: 0;
+               transform: translateX(-3rem);
+               border-radius: .32rem;
+
+               .dmMgmt-wrapper {
+                  @include flexDisplay(flex-start, flex-start, column);
+                  gap: 1rem;
+                  height: 100%;
+                  opacity: 0;
+                  padding: .5rem;
+                  transform: translateY(-10px);
+
+                  position: relative;
+
+                  .search {
+                     @include flexDisplay(center, center, row);
+                     width: 100%;
+                     position: relative;
+
+                     .search-input {
+                        width: 100%;
+                        background-color: $light1;
+                        border-radius: .32rem;
+                        color: $light3;
+                        font-weight: 500;
+
+                        &::placeholder {
+                           color: $light3;
+                           opacity: .8;
+                        }
+                     }
+
+                     .search-icon {
+                        position: absolute;
+                        opacity: .85;
+                        color: $light3;
+                        right: .5rem;
+                     }
+                  }
+
+                  .dm-head {
+                     @include flexDisplay(center, flex-start, row);
+                     width: 100%;
+                     position: relative;
+
+                     .dm-title {
+                        flex: 1;
+                     }
+
+                     .dm-btn {
+                        @include flexDisplay(center, center, row);
+                        border-radius: 50%;
+
+                        .dmCreate-icon {
+                           color: $light3;
+                           font-size: 1.25rem;
+                           transition: all .25s ease-in-out;
+
+                           &:hover {
+                              transform: scale(1.1);
+                           }
+                        }
+                     }
+                  }
+
+                  .dm-wrapper {
+                     padding: 0rem .5rem;
+                     width: 100%;
+                     height: 100%;
+                     overflow-y: auto;
+                     flex: 1;
+
+                     .dm-list {
+                        @include flexDisplay(flex-start, flex-start, column);
+                        gap: .15rem;
+
+                        .dm {
+                           @include flexDisplay(center, flex-start, row);
+                           width: 100%;
+                           border-radius: .32rem;
+                           transition: all .25s ease-in-out;
+
+                           .dm-group {
+                              @include flexDisplay(center, flex-start, row);
+                              flex: 1;
+                              gap: .5rem;
+                              padding: .35rem;
+
+                              .dmIcon-wrapper {
+                                 @include flexDisplay(center, center, row);
+   
+                                 .dm-icon {
+                                    width: 2.6rem;
+                                    height: 2.6rem;
+                                    border-radius: 50%;
+                                    border: 4px solid $light1;
+                                 }
+                              }
+   
+                              .dm-info {
+                                 @include flexDisplay(flex-start, flex-start, column);
+   
+                                 .dm-name {
+                                    font-size: .9rem;
+                                    font-weight: bolder;
+                                    color: $dark2;
+                                 }
+   
+                                 .dm-subinfo {
+                                    color: $light3;
+                                    font-weight: 500;
+                                 }
+                              }
+                           }
+                           
+                           .delete-dm {
+                              margin-right: .35rem;
+                              color: $light3;
+                              height: 100%;
+                              
+                              .dmDelete-icon {
+                                 transition: all .25s ease-in-out;
+                                 opacity: 0;
+                              }
+
+                              &:hover {
+                                 color: $delete_error;
+                              }
+                           }
+
+                           &:hover {
+                              box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
+                              .dmDelete-icon {
+                                 opacity: 1;
+                              }
+                           }
+                        }
+
+                        .curr {
+                           box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                        }
+                     }
+                  }
+               }
+
+               .roomMgmt-wrapper {
+                  @include flexDisplay(flex-start, flex-start, column);
+                  height: 100%;
+                  opacity: 0;
+                  transform: translateY(-10px);
+
+                  .roomMgmt-head {
+                     @include flexDisplay(center, flex-start, row);
+                     width: 100%;
+                     padding: .5rem;
+                     height: 3.245rem;
+                     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+
+                     .room-name {
+                        color: $light3;
+                        text-transform: uppercase;
+                        flex: 1;
+                     }
+
+                     .roomMgmt-menu {
+                        @include flexDisplay(center, flex-start, row);
+                        position: relative;
+
+                        .burger-btn {
+                           @include flexDisplay(center, flex-start, row);
+                           transition: all .25s ease-in-out;
+                        }
+
+                        .menu-options {
+                           @include flexDisplay(flex-start, flex-start, column);
+                           position: absolute;
+                           width: max-content;
+                           padding: 1rem;
+                           top: -.4rem;
+                           right: 1rem;
+                           z-index: 20;
+                           border-radius: .32rem;
+                           transition: all .25s ease-in-out;
+                           transform: translateX(-2rem);
+                           visibility: hidden;
+                           opacity: 0;
+                           background-color: $light2;
+                           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                           .option {
+                              width: 100%;
+
+                              .opt-btn {
+                                 @include flexDisplay(center, flex-start, row);
+                                 width: 100%;
+                                 gap: .75rem;
+                                 color: $light3;
+                                 font-weight: 600;
+                                 padding: .5rem;
+                                 border-radius: .32rem;
+                                 transition: all .25s ease-in-out;
+
+                                 .opt-img {
+                                    width: 1rem;
+                                    height: 1rem;
+                                 }
+
+                                 &:hover {
+                                    background-color: $light1;
+                                 }
+                              }
+
+                              .delete-btn {
+                                 .delete-icon {
+                                    color: $delete_error;
+                                 }
+
+                                 &:hover {
+                                    background-color: $delete_error;
+
+                                    .delete-icon, p {
+                                       color: $light1;
+                                    }
+                                 }
+                              }
+                           }
+                        }
+
+                        &:hover {
+                           .burger-btn {
+                              color: $light4;
+
+                           }
+                           .menu-options {
+                              transform: translateX(0rem);
+                              opacity: 1;
+                              visibility: visible;
+                           }
+                        }
+                     }
+                  }
+
+                  .roomContents-container {
+                     height: 100%;
+                     width: 100%;
+                     overflow-y: auto;
+                     
+                     .roomContents-list {
+                        @include flexDisplay(flex-start, flex-start, column);
+                        gap: .75rem;
+                        padding: .05rem .25rem;
+
+                        .category-submenu {
+                           .setting-item {
+                              @include flexDisplay(center, flex-start, row);
+                              position: relative;
+
+                              .mainSetting-btn {
+                                 @include flexDisplay(center, center, row);
+                                 color: $light3;
+                              }
+
+                              .CategorySetting-menu {
+                                 @include flexDisplay(flex-start, flex-start, row);
+                                 gap: .5rem;
+                                 position: absolute;
+                                 right: .75rem;
+                                 bottom: -2.6rem;
+                                 padding: .5rem;
+                                 z-index: 20;
+                                 width: max-content;
+                                 background-color: $light2;
+                                 border-radius: .32rem;
+                                 transform: translateX(-2rem);
+                                 visibility: hidden;
+                                 transition: all .25s ease-in-out;
+                                 opacity: 0;
+                                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                                 .setting {
+                                    width: 100%;
+                                 
+                                    .setting-btn {
+                                       @include flexDisplay(center, flex-start, row);
+                                       width: 100%;
+                                       color: $light3;
+                                       padding: .5rem;
+                                       border-radius: .32rem;
+                                       transition: all .25s ease-in-out;
+                                       &:hover {
+                                          background-color: $light1;
+                                       }
+                                    }
+
+                                    .delete:hover {
+                                       background-color: $delete_error;
+                                       color: $light1;
+                                    }
+                                 }
+                              }
+
+                              &:hover {
+                                 .CategorySetting-menu {
+                                    transform: translateX(0rem);
+                                    opacity: 1;
+                                    visibility: visible;
+                                 }
+                              }
+                           }
+
+                           .add-item {
+                              position: relative;
+
+                              .addMiniRoom-btn {
+                                 @include flexDisplay(center, flex-start, row);
+                                 color: $light3;
+                                 transition: all .25s ease-in-out;
+
+                                 &:hover {
+                                    color: $light4;
+                                 }
+                              }
+
+                              .createMiniRoom-form {
+                                 @include flexDisplay(center, flex-start, column);
+                                 gap: .5rem;
+                                 position: absolute;
+                                 right: .5rem;
+                                 bottom: -7.85rem;
+                                 width: max-content;
+                                 background-color: $light2;
+                                 padding: .5rem;
+                                 transform: translateX(-2rem);
+                                 visibility: hidden;
+                                 opacity: 0;
+                                 border-radius: .32rem;
+                                 transition: all .25s ease-in-out;
+                                 z-index: 20;
+                                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                                 .createMiniRoom-title {
+                                    color: $light3;
+                                    font-size: .8rem;
+                                    font-weight: 700;
+                                 }
+
+                                 .createMiniRoom-input {
+                                    padding: .25rem;
+                                    border-radius: .32rem;
+                                    background-color: $light1;
+                                    color: $light3;
+                                    font-weight: 600;
+                                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+                                    &::placeholder {
+                                       color: $light3;
+                                       opacity: .75;
+                                    }
+                                 }
+
+                                 .type {
+                                    @include flexDisplay(center, center, row);
+                                    gap: .5rem;
+                                    width: 100%;
+
+                                    .type-text, .type-voice {
+                                       @include flexDisplay(center, flex-start, row);
+                                       padding: .25rem .75rem;
+                                       border-radius: .32rem;
+                                       color: $light3;
+                                       background-color: $light1;
+                                       transition: all .25s ease-out;
+
+                                       &:hover, &:focus {
+                                          background-color: $light3;
+                                          color: $light1;
+                                       }
+                                    }
+                                 }
+
+                                 .createMiniRoom-btn {
+                                    background-color: $light4;
+                                    color: $light1;
+                                    padding: .25rem 1rem;
+                                    border-radius: .32rem;
+                                    transition: all .25s ease-in-out;
+
+                                    &:hover {
+                                       background-color: $dark2;
+                                    }
+                                 }
+                              }
+
+                              &:hover {
+                                 .createMiniRoom-form {
+                                    transform: translateX(0rem);
+                                    opacity: 1;
+                                    visibility: visible;
+                                 }
+                              }
+                           }
+                        }
+
+                        .room-content {
+                           width: 100%;
+                           position: relative;
+
+                           .roomContent-head {
+                              @include flexDisplay(center, flex-start, row);
+                              gap: .25rem;
+
+                              .hideCollapse-btn, .addFolder-icon, .setting-icon {
+                                 @include flexDisplay(center, flex-start, row);
+                                 color: $light3;
+                                 transition: all .25s ease-out;
+
+                                 &:hover {
+                                    color: $light4;
+                                 }
+                              }
+
+                              .folder-name, .setting-icon {
+                                 color: $light3;
+                                 font-weight: bolder;
+                                 flex: 1;
+                              }
+
+                              
+                           }
+
+                           .subRoom-content {
+                              @include flexDisplay(flex-start, flex-start, column);
+                              gap: .25rem;
+                              margin-top: .5rem;
+
+                              .subroom-container {
+                                 @include flexDisplay(center, flex-start, row);
+                                 position: relative;
+                                 padding: .25rem .25rem;
+                                 border-radius: .32rem;
+                                 transition: all .25s ease-in-out;
+                                 width: 100%;
+
+                                 .subroom {
+                                    @include flexDisplay(center, flex-start, row);
+                                    gap: .45rem;
+                                    color: $light3;
+                                    width: 100%;
+   
+                                    .subRoom-icon {
+                                       @include flexDisplay(center, flex-start, row);
+                                    }
+   
+                                    .subroom-name {
+                                       font-weight: 400;
+                                       font-size: .9rem;
+                                    }
+                                 }
+
+                                 .category-submenu {
+                                    .setting-item {
+                                       .mainSetting-btn {
+                                          opacity: .85;
+                                          font-size: .8rem;
+
+                                          &:hover {
+                                             .setting-icon {
+                                                color: $light4;
+                                             }
+                                          }
+                                       }
+
+                                       .CategorySetting-menu {
+                                          bottom: -2.65rem;
+                                          right: .75rem;
+                                       }
+                                    }
+                                 }
+
+                                 &:hover {
+                                    background-color: $light1;
+                                 }
+                              }
+
+                              .child-subroom {
+                                 & {
+                                    margin-left: 1rem;
+                                    width: calc(100% - 1rem);
+                                 }
+
+                                 &::before {
+                                    content: '';
+                                    position: absolute;
+                                    height: .05rem;
+                                    width: .45rem;
+                                    top: .8rem;
+                                    left: -.55rem;
+                                    opacity: .35;
+                                    background-color: $light3;
+                                 }
+                              }
+
+                              .current {
+                                 background-color: $light1;
+                              }
+                           }
+                        }
+
+                        .parent-room {
+                           &::before {
+                              content: '';
+                              position: absolute;
+                              height: calc(100% - 1rem);
+                              width: .05rem;
+                              top: 1rem;
+                              left: .39rem;
+                              opacity: .35;
+                              background-color: $light3;
+                           }
+                        }
+                     }
+
+                     .renameMainRoomPopup, .renameMiniRoomPopup, .createMainRoomPopup {
+                        position: absolute;
+                        right: 1.5rem;
+                        top: 5.25rem;
+                        z-index: -1;
+
+                        transform: translateY(-50px);
+                        opacity: 0;
+                        pointer-events: none;
+
+                        .closePopup-btn {
+                           position: absolute;
+                           top: .5rem;
+                           right: .5rem;
+
+                           .close-popup {
+                              font-size: 1.25rem;
+                              color: $light4;
+                              transition: all .25s ease-in-out;
+
+                              &:hover {
+                                 color: $light3;
+                              }
+                           }
+                        }
+
+                        .renameMainRoom-form, .createMainRoom-form {
+                           @include flexDisplay(center, flex-start, column);
+                           gap: .5rem;
+                           width: max-content;
+                           background-color: $light2;
+                           padding: .5rem;
+                           border-radius: .32rem;
+                           transition: all .25s ease-in-out;
+                           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                           .renameMainRoom-title, .createMainRoom-title {
+                              color: $light3;
+                              font-size: .8rem;
+                              font-weight: 700;
+                           }
+
+                           .renameMainRoom-input, .createMainRoom-input {
+                              padding: .25rem;
+                              border-radius: .32rem;
+                              background-color: $light1;
+                              color: $light3;
+                              font-weight: 600;
+                              box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+                              &::placeholder {
+                                 color: $light3;
+                                 opacity: .75;
+                              }
+                           }
+
+                           .renameMainRoom-btn, .createMainRoom-btn {
+                              background-color: $light4;
+                              color: $light1;
+                              padding: .25rem 1rem;
+                              border-radius: .32rem;
+                              transition: all .25s ease-in-out;
+
+                              &:hover {
+                                 background-color: $dark2;
+                              }
+                           }
+                        }
+                     }
+
+                     .createMainRoomPopup {
+                        right: -12.5rem;
+                     }
+                  }
+               }
+            }
+            
+            .activity-room-container {
+               flex: 1;
+               height: 100%;
+               background-color: $light2;
+               z-index: 2;
+               box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+               
+               opacity: 0;
+               transform: translateX(-2rem);
+               border-radius: .32rem;
+
+               .activity-wrapper {
+                  @include flexDisplay(flex-start, flex-start, column);
+                  height: 100%;
+                  opacity: 0;
+                  transform: translateY(-10px);
+
+                  .activity-head {
+                     @include flexDisplay(center, flex-start, row);
+                     width: 100%;
+                     margin-top: .5rem;
+                     gap: .75rem;
+   
+                     .activityHead-group {
+                        @include flexDisplay(center, flex-start, row);
+                        gap: .75rem;
+   
+                        .friend-title {
+                           font-weight: bolder;
+                           color: $light3;
+                           text-transform: uppercase;
+                           position: relative;
+                        }
+   
+                        .friends-icon {
+                           color: $light3;
+                           margin-left:.5rem;
+                           position: relative;
+                        }
+                     }
+   
+                     .friends-categories {
+                        @include flexDisplay(center, flex-start, row);
+                        gap: .1rem;
+                        // flex: 1;
+   
+                        .status {
+                           color: $light3;
+                           text-align: center;
+                           transition: all .25s ease-in-out;
+                           position: relative;
+
+                           .pending-icon {
+                              position: absolute;
+                              top: 0;
+                              right: .25rem;
+                              z-index: 3;
+                              color: $delete_error;
+                              animation-name: wobble-vertical;
+                              animation-duration: 1s;
+                              animation-timing-function: ease-in-out;
+                              animation-iteration-count: infinite;
+                           }
+                           
+                           .status-btn {
+                              @include flexDisplay(center, center, row);
+                              padding: .5rem 1rem;
+                              border-radius: .32rem;
+                              position: relative;
+                              border-radius: .32rem;
+                              font-size: .8rem;
+                              color: $light3;
+                              font-weight: 500;
+                              transition: all .25s ease-out;
+   
+                              // &::before {
+                              //    content: '';
+                              //    position: absolute;
+                              //    height: 100%;
+                              //    width: 100%;
+                              //    bottom: 0;
+                              //    left: 0;
+                              //    border-radius: .32rem;
+                              //    background-color: $light1;
+                              //    opacity: .75;
+                              //    transform: scaleX(0);
+                              //    transform-origin: left;
+                              //    transition: all .25s ease-out;
+                              // }
+   
+                              &:hover {
+                                 background-color: $light1;
+                              }
+                           }
+
+                           .curr {
+                              background-color: $light1;
+                           }
+                        }
+   
+                        .burger {
+                           @include flexDisplay(center, flex-start, row);
+                           position: relative;
+                           display: none;
+
+                           .pending-icon {
+                              position: absolute;
+                              top: -.35rem;
+                              right: -1rem;
+                              z-index: 3;
+                              color: $delete_error;
+                              color: $delete_error;
+                              animation-name: wobble-vertical;
+                              animation-duration: 1s;
+                              animation-timing-function: ease-in-out;
+                              animation-iteration-count: infinite;
+                           }
+   
+                           .burger-icon {
+                              transition: all .25s ease-in-out;
+                              cursor: pointer;
+                           }
+   
+                           .drop-statusMenu {
+                              @include flexDisplay(flex-start, flex-start, column);
+                              gap: .25rem;
+                              position: absolute;
+                              // right: -14rem;
+                              right: -2.75rem;
+                              z-index: 3;
+                              top: 1rem;
+                              padding: .75rem;
+                              border-radius: .32rem;
+                              background-color: $light2;
+                              transform: translateX(-2rem);
+                              visibility: hidden;
+                              transition: transform 0.15s ease-out;
+                              box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+   
+                              .drop-status {
+                                 width: 100%;
+                                 opacity: 0;
+                                 transition: all .25s ease-out;
+
+                                 .pending-icon {
+                                    position: absolute;
+                                    top: -.25rem;
+                                    right: -.25rem;
+                                    z-index: 3;
+                                    color: $delete_error;
+                                    color: $delete_error;
+                                    animation: wobble-vertical 1s ease-in-out infinite;
+                                 }
+   
+                                 .status-btn {
+                                    @include flexDisplay(center, center, row);
+                                    padding: 0rem .5rem;
+                                    border-radius: .32rem;
+                                    position: relative;
+   
+                                    p {
+                                       color: $light3;
+                                       font-weight: 500;
+                                       position: absolute;
+                                    }
+   
+                                    &::before {
+                                       content: '';
+                                       position: absolute;
+                                       border-radius: .32rem;
+                                       top: 0;
+                                       left: 0;
+                                       width: 100%;
+                                       height: 100%;
+                                       background-color: $light1;
+                                       opacity: .75;
+                                       transform: scaleX(0);
+                                       transform-origin: left;
+                                       transition: all .25s ease-out;
+                                    }
+   
+                                    &:hover {
+                                       &:hover::before {
+                                          transform: scaleX(1);
+                                          transform-origin: left;
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+   
+                           &:hover {
+                              .burger-icon {
+                                 color: $dark1;
+                              }
+   
+                              .drop-statusMenu {
+                                 transform: translateX(0rem);
+                                 visibility: visible;
+   
+                                 .drop-status {
+                                    opacity: 1;
+                                 }
+                              }
+                           }
+                        }
+                     }
+   
+                     .add-friend {
+                        position: relative;
+                        margin-left: auto;
+                        margin-right: .5rem;
+
+                        .addFriend-btn {
+                           @include flexDisplay(center, flex-start, row);
+                           transition: all .25s ease-in-out;
+      
+                           .addFriend-icon {
+                              width: 1.25rem;
+                              height: 1.25rem;
+                           }
+      
+                           &:hover {
+                              transform: scale(1.2);
+                           }
+                        }
+
+                        .addFriend-popup {
+                           position: absolute;
+                           width: max-content;
+                           left: -11.5rem;
+                           bottom: -8.75rem;
+                           z-index: 2;
+                           padding: .5rem;
+                           background-color: $light2;
+                           border-radius: .32rem;
+
+                           transform: translateY(-50px);
+                           opacity: 0;
+                           pointer-events: none;
+
+                           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                           .closePopup-btn {
+                              position: absolute;
+                              top: .35rem;
+                              right: .5rem;
+
+                              .close-popup {
+                                 font-size: 1.65rem;
+                                 color: $light4;
+                                 transition: all .25s ease-in-out;
+   
+                                 &:hover {
+                                    color: $light3;
+                                 }
+                              }
+                           }
+
+                           .addFriend-title, small {
+                              color: $light3;
+                           }
+
+                           .addFriend-err {
+                              color: $light1;
+                              padding: .25rem;
+                              font-size: .85rem;
+                              border-radius: .32rem;
+                              background-color: $delete_error;
+                           }
+
+                           .addFriend-form {
+                              @include flexDisplay(center, flex-start, column);
+                              gap: .5rem;
+                              margin-top: .5rem;
+
+                              .addFriend-input {
+                                 width: 100%;
+                                 background-color: $light1;
+                                 border-radius: .32rem;
+                                 padding: .25rem;
+                                 color: $light3;
+                                 font-weight: 500;
+
+                                 &::placeholder {
+                                    opacity: .8;
+                                 }
+                              }
+
+                              .friend-btn {
+                                 padding: .5rem 1rem;
+                                 border-radius: .32rem;
+                                 background-color: $light4;
+                                 color:$light1;
+                                 transition: all .25s ease-in-out;
+                                 box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                        
+                                 &:hover {
+                                    background-color: $dark2;
+                                    color: $light1;
+                                 }
+                              }
+                           }
+
+                        }
+                     }
+
+                     @keyframes wobble-vertical {
+                        16.65% {
+                          transform: translateY(6px);
+                        }
+                      
+                        33.3% {
+                          transform: translateY(-4px);
+                        }
+                      
+                        49.95% {
+                          transform: translateY(2px);
+                        }
+                      
+                        66.6% {
+                          transform: translateY(0px);
+                        }
+                      
+                        83.25% {
+                          transform: translateY(-1px);
+                        }
+                      
+                        100% {
+                          transform: translateY(0px);
+                        }
+                     }
+                  }
+
+                  .activity-contents {
+                     @include flexDisplay(center, flex-start, column);
+                     width: 100%;
+                     flex: 1;
+                     opacity: 0;
+                     transform: translateY(-10px);
+                     height: calc(100% - 33px);
+
+                     .search-wrapper {
+                        @include flexDisplay(center, flex-start, row);
+                        gap: .25rem;
+                        margin-top: .5rem;
+                        width: 80%;
+                        background-color: $light1;
+                        border-radius: .32rem;
+                        padding: .5rem;
+                        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+                        .search {
+                           @include flexDisplay(center, flex-start, row);
+                           flex: 1;
+                           .search-input {
+                              width: 100%;
+                              background-color: $light1;
+                              border-radius: .32rem;
+                              color: $light3;
+                              font-weight: 500;
+      
+                              &::placeholder {
+                                 color: $light3;
+                                 opacity: .8;
+                              }
+                           }
+                        }
+
+                        .search-icon {
+                           opacity: .85;
+                           color: $light3;
+                           right: .5rem;
+                        }
+                     }
+
+                     .divider {
+                        margin: 1rem;
+                        width: 95%;
+                        color: $light3;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        border-bottom: .05rem solid rgba(114,89,70, .5);
+                     }
+
+                     .friendList-wrapper {
+                        width: 100%;
+                        height: 100%;
+                        overflow-y: auto;
+                        
+                        .friend-list {
+                           @include flexDisplay(center, center, column);
+                           gap: 1.25rem;
+
+                           .friend {
+                              @include flexDisplay(center, flex-start, row);
+                              gap: 1rem;
+                              width: 80%;
+                              padding: .5rem;
+                              box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                              border-radius: .32rem;
+                              transition: all .25s ease-in-out;
+
+                              .friendIcon-wrapper {
+                                 @include flexDisplay(center, flex-start, row);
+                                 gap: .75rem;
+                                 flex: 1;
+
+                                 .friendIcon-container {
+                                    @include flexDisplay(center, center, row);
+                                    position: relative;
+
+                                    .friend-icon {
+                                       width: 2.8rem;
+                                       height: 2.8rem;
+                                       border-radius: 50%;
+                                       object-fit:cover;
+                                       background-color: $dark1;
+                                       border: 1.75px solid $light1;
+                                    }
+
+                                    .status-icon {
+                                       position: absolute;
+                                       width: 1rem;
+                                       height: 1rem;
+                                       bottom: .1rem;
+                                       right: -.2rem;
+                                       border-radius: 50%;
+                                       border: 2px solid $light1;
+                                    }
+                                 }
+
+                                 .friend-username {
+                                    color: $light3;
+                                    font-size: .95rem;
+                                    font-weight: 500;
+                                 }
+                              }
+
+                              .friend-btns {
+                                 @include flexDisplay(center, flex-start, row);
+                                 gap: 1rem;
+
+                                 .message, .more {
+                                    @include flexDisplay(center, center, row);
+                                    width: 2.5rem;
+                                    height: 2.5rem;
+                                    border-radius: 50%;
+                                    background-color: $light1;
+                                    transition: all .25s ease-in-out;
+                                    
+                                    .msg-icon, .more-icon {
+                                       color: $light3;
+                                       font-size: 1rem;
+                                       transition: all .25s ease-in-out;
+                                    }
+
+                                    &:hover {
+                                       background-color: $light3;
+
+                                       .msg-icon, .more-icon {
+                                          color: $light1;
+                                       }
+                                    }
+                                 }
+
+                                 .more-wrapper {
+                                    position: relative;
+                                    width: 2.5rem;
+                                    height: 2.5rem;
+                                    border-radius: 50%;
+
+                                    .more-menu {
+                                       @include flexDisplay(flex-start, flex-start, column);
+                                       position: absolute;
+                                       bottom: -5rem;
+                                       right: 2rem;
+                                       z-index: 5;
+                                       width: max-content;
+                                       padding: .75rem;
+                                       border-radius: .32rem;
+                                       background-color: $light2;
+                                       transform: translateX(-2rem);
+                                       visibility: hidden;
+                                       opacity: 0;
+                                       transition: all 0.25s ease-out;
+                                       box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+   
+                                       .menu-item {
+                                          @include flexDisplay(center, flex-start, row);
+                                          gap: .5rem;
+                                          width: 100%;
+                                          padding: .5rem;
+                                          border-radius: .32rem;
+                                          transition: all .25s ease-in-out;
+   
+                                          .item-btn {
+                                             @include flexDisplay(center, flex-start, row);
+                                             gap: .5rem;
+                                             color: $light3;
+                                             font-weight: 700;
+                                             font-size: .85rem;
+
+                                             .item-icon {
+                                                color: $light3;
+                                             }
+                                          }
+   
+                                          &:hover {
+                                             background-color: $light1;
+                                          }
+                                       }
+   
+                                       .delete {
+                                          .delete-icon {
+                                             color: $delete_error;
+                                          }
+   
+                                          &:hover {
+                                             background-color: $delete_error;
+   
+                                             .delete-icon {
+                                                color: $light1;
+                                             }
+   
+                                             .item-btn {
+                                                color: $light1;
+                                             }
+                                          }
+                                       }
+                                    }
+
+                                    &:hover {
+
+                                       .more-menu {
+                                          transform: translateX(0rem);
+                                          opacity: 1;
+                                          visibility: visible;
+                                       }
+                                    }
+                                 }
+                              }
+
+                              &:hover {
+                                 box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                              }
+                           }
+                        }
+                     }
+
+                     .request-wrapper {
+                        @include flexDisplay(flex-start, flex-start, column);
+                        width: 100%;
+                        height: 100%;
+                        overflow-y: auto;
+
+                        .noRequest-wrapper {
+                           width: 100%;
+                           height: 100%;
+                           @include flexDisplay(center, center, column);
+                           gap: .5rem;
+
+                           .no-requests-img {
+                              width: 23vmax;
+                              height: 23vmax;
+                           }
+                           
+                           .no-requests-p {
+                              color: $light3;
+                              font-weight: 500;
+                              opacity: .75;
+                           }
+                        }
+
+                        .received, .sent {
+                           padding: 1rem;
+                           width: 100%;
+
+                           .received-title, .sent-title {
+                              color: $light3;
+                              text-transform: uppercase;
+                           }
+
+                           .sent-list, .received-list {
+                              @include flexDisplay(center, flex-start, column);
+                              gap: 1rem;
+                              width: 100%;
+                              margin-top: .5rem;
+
+                              .sent-request, .received-request {
+                                 @include flexDisplay(center, flex-start, row);
+                                 gap: .1rem;
+                                 width: 95%;
+                                 padding: .5rem;
+                                 box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 2px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                                 border-radius: .32rem;
+                                 transition: all .25s ease-in-out;
+                                 position: relative;
+
+                                 .requestee, .requester {
+                                    @include flexDisplay(center, flex-start, row);
+                                    padding: .25rem;
+                                    gap: .5rem;
+                                    border-radius: .32rem;
+                                    transition: all .25s ease-in-out;
+                                    .requestee-icon, .requester-icon {
+                                       width: 3.25rem;
+                                       height: 3.25rem;
+                                       border-radius: 50%;
+                                       border: 3.5px solid $light1;
+                                       object-fit:cover;
+                                    }
+
+                                    .username {
+                                       color: $light3;
+                                       font-size: 1rem;
+                                       font-weight: 600;
+                                    }
+
+                                    &:hover {
+                                       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                                    }
+                                 }
+
+                                 .request-date, .request-msg {
+                                    color: $light3;
+                                    font-weight: 600;
+                                    opacity: .75;
+                                    font-size: .75rem;
+                                    padding-left: .25rem;
+                                    border-left: 2px solid $light3;
+                                 }
+
+                                 .request-date {
+                                    position: absolute;
+                                    background-color: $light3;
+                                    color: $light1;
+                                    padding: .25rem;
+                                    border-radius: .32rem;
+                                    border: none;
+                                    top: -.75rem;
+                                    opacity: 1;
+                                    right: -.5rem;
+                                 }
+
+                                 .request-btns, .delete-request {
+                                    @include flexDisplay(center, flex-start, row);
+                                    gap: .25rem;
+                                    margin-left: auto;
+                                 }
+
+                                 .pending-icon, .requestDeclined-icon {
+                                    margin-left: auto;
+                                    color: $light3;
+                                    font-size: 1.75rem;
+                                 }
+
+                                 .requestAccepted-icon {
+                                    color: $active_valid;
+                                 }
+                                 
+                                 .requestDeclined-icon {
+                                    color: $delete_error;
+                                 }
+
+                                 .accept-btn, .decline-btn {
+                                    @include flexDisplay(center, center, row);
+
+                                    .accept-icon, .decline-icon {
+                                       color: $light3;
+                                       font-size: 1.45rem;
+                                       transition: all .25s ease-in-out;
+                                    }
+
+                                    &:hover {
+                                       .accept-icon {
+                                          color: $active_valid;
+                                       }
+                                       .decline-icon {
+                                          color: $delete_error
+                                       }
+                                    }
+                                 }
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+               
+               .dmRoom-wrapper {
+                  @include flexDisplay(flex-start, flex-start, column);
+                  opacity: 0;
+                  transform: translateY(-10px);
+                  height: 100%;
+
+                  .msgHeadMenu-wrapper {
+                     @include flexDisplay(flex-start, flex-end, row);
+                     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 2px 0px;
+                     z-index: 2;
+                     width: 100%;
+
+                     .msgHead-menu {
+                        @include flexDisplay(center, flex-start, row);
+                        background-color: $light2;
+                        border-radius: .32rem;
+                        margin: .5rem .5rem;
+                        position: relative;
+
+                        .msgHeadMenu-group {
+                           @include flexDisplay(center, flex-start, row);
+                           margin-right: .25rem;
+                        }
+
+                        .menu-item {
+                           .item-btn {
+                              @include flexDisplay(center, flex-start, row);
+                              transition: all .25s ease-in-out;
+                              border-radius: .32rem;
+                              padding: .35rem;
+                              color: $light3;
+                              font-size: 1.05rem;
+
+                              &:hover {
+                                 box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                              }
+                           }
+
+                           // .notification-btn .notification-icon {
+                           //    animation: bell 2.5s ease-out infinite;
+                           // }
+
+                           .msgSearch-form {
+                              @include flexDisplay(center, center, row);
+                              
+                              .msgSearch-input {
+                                 background-color: $light1;
+                                 border-radius: .32rem;
+                                 color: $light3;
+                                 font-weight: 500;
+
+                                 &::placeholder {
+                                    color: $light3;
+                                    opacity: .8;
+                                 }
+                              }
+                           }
+
+                           @keyframes bell {
+                              0%, 90% {
+                                 transform: rotateZ(0);
+                              }
+                              5%, 15%, 25%, 35%, 45%, 55%, 65%, 75% {
+                                 transform: rotateZ(30deg)
+                              }
+                              10%, 20%, 30%, 40%, 50%, 60%, 70%, 80% {
+                                 transform: rotateZ(-30deg)
+                              }
+                           }
+                        }
+
+                        .pinnedMsg-wrapper {
+                           @include flexDisplay(flex-start, flex-start, column);
+                           gap: .25rem;
+                           bottom: -18.8rem;
+                           right: 18.5rem;
+                           width: 285px;
+                           height: 245px;
+                           padding: 0;
+
+                           .pinnedMsg-header {
+                              box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+                              width: 100%;
+                              padding: .25rem;
+
+                              .closePopup-btn {
+                                 transform: rotate(-90deg);
+                                 top: 0;
+                              }
+                           }
+
+                           .pinnedMsg-list {
+                              width: 100%;
+                              padding: .25rem .35rem;
+
+                              .pinned-msg {
+                                 @include flexDisplay(center, flex-start, row);
+                                 gap: .25rem;
+                                 padding: .25rem;
+                                 margin-bottom: .25rem;
+                                 border-radius: .32rem;
+                                 background-color: $light1;
+   
+                                 .user-icon {
+                                    width: 2.6rem;
+                                    height: 2.6rem;
+                                    border-radius: 50%;
+                                    border: 2.5px solid $light1;
+                                    object-fit:cover;
+                                 }
+   
+                                 .msg-info {
+                                    @include flexDisplay(flex-start, flex-start, column);
+   
+                                    .msg-header {
+                                       @include flexDisplay(center, flex-start, row);
+                                       gap: .5rem;
+                                       color: $light3;
+   
+                                       .username {
+                                          font-weight: 700;
+                                          font-size: .9rem; 
+                                       }
+   
+                                       .date {
+                                          font-weight: 600;
+                                          font-size: .75rem;
+                                          opacity: .85;
+                                       }
+                                    }
+   
+                                    .message {
+                                       color: $light3;
+                                       font-weight: 600;
+                                       font-size: .9rem;
+                                    }
+                                 }
+
+                                 .unpin {
+                                    @include flexDisplay(center, center, row);
+                                    margin-left: auto;
+                                    // opacity: 0;
+                                    transition: all .25s ease-in-out;
+
+                                    .unpin-icon {
+                                       color: $light3;
+                                       transition: all .25s ease-in-out;
+
+                                       &:hover {
+                                          color: $delete_error;
+                                       }
+                                    }
+                                 }
+
+                                 &:hover {
+                                    .unpin {
+                                       opacity: 1;
+                                    }
+                                 }
+                              }
+                           }
+                        }
+
+                        .roomInvite-wrapper {
+                           position: absolute;
+                           bottom: -15.6rem;
+                           right: 0rem;
+                           width: 285px;
+                           height: 245px;
+                           z-index: 2;
+                           padding: 0;
+                           background-color: $light2;
+                           border-radius: .32rem;
+                           overflow-y: auto;
+
+                           transform: translateX(50px);
+                           opacity: 0;
+                           pointer-events: none;
+                           
+                           box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+                           .roomInvite-header {
+                              box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+                              width: 100%;
+                              padding: .25rem;
+
+                              .closePopup-btn {
+                                 transform: rotate(-90deg);
+                                 top: 0;
+                              }
+                           }
+
+                           .dmCreate-form {
+                              padding: .25rem;
+                           }
+                        }
+
+
+                     }
+                  }
+
+                  .dmMsg-container {
+                     flex: 1;
+                     width: 100%;
+                     overflow-y: auto;
+
+                     .msg-list {
+                        @include flexDisplay(flex-start, flex-start, column);
+                        
+                        .msg-container {
+                           @include flexDisplay(flex-start, flex-start, column);
+                           gap: 1rem;
+                           width: 100%;
+
+                           .msg-head {
+                              @include flexDisplay(flex-start, flex-start, column);
+                              gap: .5rem;
+                              width: calc(100% - 1.75rem);
+                              margin: .5rem 1rem;
+                              padding-bottom: .75rem;
+                              border-bottom: 1px solid rgba(114,89,70, .5);
+                              position: relative;
+
+                              .msgHead-main {
+                                 @include flexDisplay(flex-end, flex-start, row);
+                                 gap: .5rem;
+
+                                 .dmIcon-wrapper {
+                                    @include flexDisplay(center, center, row);
+                                    
+                                    .dm-icon {
+                                       width: 7rem;
+                                       height: 7rem;
+                                       object-fit:cover;
+                                       border-radius: 50%;
+                                       border: 5px solid $light1;
+                                    }
+                                 }
+                                 .dmRoom-name {
+                                    color: $light3;
+                                    text-transform: uppercase;
+                                    letter-spacing: .05rem;
+                                 }
+
+                                 .dmRoom-participants {
+                                    color: $light3;
+                                    letter-spacing: .05rem;
+                                 }
+                              }
+
+                              .subinfo {
+                                 color: $light3;
+                                 opacity: .75;
+                              }
+
+                              &::after {
+                                 content: '';
+                                 position: absolute;
+                                 background-color: $light3;
+                                 border: 3px solid $light2;
+                                 opacity: .75rem;
+                                 width: 1rem;
+                                 height: 1rem;
+                                 border-radius: 50%;
+                                 bottom: -.71rem;
+                                 left: calc(50% - .75rem);
+                              }
+                           }
+
+                           .msg-contents {
+                              @include flexDisplay(center, flex-start, column);
+                              gap: 1.4rem;
+                              position: relative;
+                              width: 100%;
+
+                              .msg-wrapper {
+                                 width: 98%;
+                                 padding: .5rem;
+                                 position: relative;
+                                 border-radius: .32rem;
+                                 box-shadow: rgba(0, 0, 0, .05) 0px 1px 2px 0px;
+                                 transition: all .25s ease-in-out;
+
+                                 .reply-p {
+                                    color: $light3;
+                                    font-weight: 700;
+                                    font-size: .85rem;
+                                    margin-left: 3.5rem;
+                                    @include flexDisplay(center, flex-start, row);
+
+                                    .reply-imgFile {
+                                       margin-left: .5rem;
+                                    }
+
+                                    &::before {
+                                       content: '';
+                                       opacity: .65;
+                                       position: absolute;
+                                       top: 1.05rem;
+                                       left: 1.73rem;
+                                       width: 34px;
+                                       height: 1.75px;
+                                       background-color: $light4;
+                                       border-radius: .32rem;
+                                    }
+
+                                    &::after {
+                                       content: '';
+                                       opacity: .65;
+                                       position: absolute;
+                                       top: 1.18rem;
+                                       left: 1.75rem;
+                                       width: 1.75px;
+                                       height: 5px;
+                                       background-color: $light4;
+                                       border-radius: .32rem;
+                                    }
+                                 }
+
+                                 .msg-subHead {
+                                    @include flexDisplay(flex-end, flex-start, row);
+                                    gap: .75rem;
+                                    margin-bottom: .25rem;
+
+                                    .dm-icon {
+                                       width: 2.6rem;
+                                       height: 2.6rem;
+                                       border-radius: 50%;
+                                       border: 2.5px solid $light1;
+                                       object-fit:cover;
+                                       transition: all .25s ease-in-out;
+                                    }
+   
+                                    .msgSubHead-id {
+                                       @include flexDisplay(center, flex-start, row);
+                                       gap: .5rem;
+                                       .msg-author {
+                                          font-weight: 700;
+                                          color: $light3;
+                                       }
+      
+                                       .msg-date {
+                                          color: $light3;
+                                          opacity: .85;
+                                          font-weight: bolder;
+                                       }
+                                    }
+                                 }
+   
+                                 .msg-file {
+                                    border-radius: .32rem;
+                                    margin: 0rem 1rem 0rem 1.25rem;
+                                 }
+
+                                 .msg {
+                                    margin: 0rem 1rem 0rem 1.25rem;
+                                    color: $light3;
+                                    font-size: .95rem;
+                                    font-weight: 500;
+
+                                    .msg-url {
+                                       color: $light4;
+                                       transition: all .15s ease-in-out;
+
+                                       &:hover {
+                                          text-shadow: 0 0 .65px $light4, 0 0 .65px
+                                       }
+                                    }
+                                 }
+
+                                 .msg-menu {
+                                    @include flexDisplay(flex-start, flex-start, row);
+                                    position: absolute;
+                                    top: -.75rem;
+                                    right: 1rem;
+                                    border-radius: .32rem;
+                                    transition: all .25s ease-in-out;
+                                    opacity: 0;
+                                    pointer-events: none;
+                                    background-color: $light2;
+                                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+                                    .reaction-btn, .reply-btn, .more-btn {
+                                       @include flexDisplay(center, flex-start, row);
+                                       padding: .5rem;
+                                       color: $light3;
+                                       border-radius: .32rem;
+                                       font-size: 1.35rem;
+                                       transition: all .25s ease-in-out;
+
+                                       &:hover {
+                                          background-color: $light1;
+                                       }
+                                    }
+
+                                    .more {
+
+                                       .more-menu {
+                                          @include flexDisplay(flex-start, flex-start, column);
+                                          position: absolute;
+                                          bottom: -5.25rem;
+                                          right: 2rem;
+                                          z-index: 5;
+                                          width: max-content;
+                                          padding: .75rem;
+                                          border-radius: .32rem;
+                                          background-color: $light2;
+                                          transform: translateX(-2rem);
+                                          visibility: hidden;
+                                          opacity: 0;
+                                          transition: all 0.25s ease-in-out;
+                                          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      
+                                          .menu-item {
+                                             @include flexDisplay(center, flex-start, row);
+                                             gap: .5rem;
+                                             width: 100%;
+                                             padding: .5rem;
+                                             border-radius: .32rem;
+                                             transition: all .25s ease-in-out;
+      
+                                             .item-btn {
+                                                @include flexDisplay(center, flex-start, row);
+                                                gap: .5rem;
+                                                color: $light3;
+                                                width: 100%;
+                                                font-weight: 700;
+                                                font-size: .85rem;
+
+                                                .item-icon {
+                                                   color: $light3;
+                                                }
+                                             }
+      
+                                             &:hover {
+                                                background-color: $light1;
+                                             }
+                                          }
+      
+                                          .delete {
+                                             .delete-icon {
+                                                color: $delete_error;
+                                             }
+      
+                                             &:hover {
+                                                background-color: $delete_error;
+      
+                                                .delete-icon {
+                                                   color: $light1;
+                                                }
+      
+                                                .item-btn {
+                                                   color: $light1;
+                                                }
+                                             }
+                                          }
+                                       }
+
+                                       &:hover {
+                                          .more-menu {
+                                             transform: translateX(0rem);
+                                             opacity: 1;
+                                             visibility: visible;
+                                          }
+                                       }
+                                    }
+
+                                    &:hover {
+                                       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+                                    }
+                                 }
+
+                                 &:hover {
+                                    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+
+                                    .msg-menu {
+                                       opacity: 1;
+                                       pointer-events: all;
+                                    }
+                                 }
+                              }
+
+                              .curr-reply {
+                                 background-color: rgba(245, 222, 179, .9);
+                              }
+                           }  
+                        }
+                     }
+                  }
+
+                  .dmMsgform-wrapper {
+                     width: 100%;
+                     position: relative;
+
+                     .replyTo-container {
+                        @include flexDisplay(center, flex-start, row);
+                        position: absolute;
+                        border-radius: .32rem .32rem 0 0;
+                        right: .56rem;
+                        top: -1.85rem;
+                        width: 98%;
+                        padding: .5rem;
+                        z-index: 10;
+                        background-color: $light3;
+
+                        transform: translateY(-20px);
+                        opacity: 0;
+                        pointer-events: none;
+
+                        .reply-to {
+                           @include flexDisplay(center, flex-start, row);
+                           flex: 1;
+                           color: $light1;
+                           font-size: .85rem;
+
+                           .reply-imgFile {
+                              margin-left: .5rem;
+                           }
+                        }
+
+                        .replyDelete-btn {
+                           @include flexDisplay(center, center, row);
+                           color: $light1;
+                        }
+                     }
+
+                     .msgImg-wrapper {
+                        margin: 0rem .5rem;
+                        border-radius: .32rem;
+                        padding: .5rem 0rem;
+                        background-color: $light1;
+
+                        transform: translateY(-20px);
+                        opacity: 0;
+                        pointer-events: none;
+
+                        @include flexDisplay(center, center, row);
+
+                        .msgImg-container {
+                           position: relative;
+                           width: 17rem;
+                           height: 16.5rem;
+                           border-radius: .32rem;
+                           background-color: $light2;
+                           @include flexDisplay(center, center, row);
+
+                           .msg-img {
+                              border-radius: .32rem;
+                           }
+
+                           .msg-file {
+                              width: 10rem;
+                              height: 10rem;
+                           }
+
+                           .img-menu {
+                              position: absolute;
+                              top: 1rem;
+                              right: -1.25rem;
+                              background-color: $light2;
+                              border-radius: .32rem;
+                              @include flexDisplay(center, center, column);
+                              box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+                              .imgDelete-btn {
+                                 padding: .35rem;
+                                 border-radius: .32rem .32rem 0rem 0rem;
+                                 transition: all .25s ease-in-out;
+
+                                 .imgDelete-icon {
+                                    color: $delete_error;
+                                    font-size: 1rem;
+                                 }
+
+                                 &:hover {
+                                    background-color: $light1;
+                                 }
+                              }
+                              
+                              .imgEdit-btn {
+                                 padding: .35rem;
+                                 border-radius: 0rem 0rem .32rem .32rem;
+                                 transition: all .25s ease-in-out;
+
+                                 .imgEdit-icon {
+                                    color: $light3;
+                                    font-size: 1rem;
+                                 }
+
+                                 &:hover {
+                                    background-color: $light1;
+                                 }
+                              }
+                           }
+                        }
+                     }
+
+                     .emoji-wrapper {
+                        background-color: $light1;
+                        width: 304px;
+                        height: 280px;
+                        border-radius: .32rem;
+                        position: absolute;
+                        bottom: 3rem;
+                        right: .25rem;
+                        display: grid;
+                        justify-items: center;
+                        justify-content: center;
+                        align-items: center;
+                        grid-template-columns: repeat(6, 1fr);
+                        grid-template-rows: repeat(100, 30px);
+                        padding: .25rem;
+                        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                        transform: translateY(-20px);
+                        opacity: 0;
+                        pointer-events: none;
+                        overflow-x: hidden;
+                        overflow-y: auto;
+
+                        .close-emoji {
+                           position: absolute;
+                           top: .45rem;
+                           right: .35rem;
+                           background-color: $light1;
+                           padding: .25rem;
+                           @include flexDisplay(center, center, row);
+                           border-radius: .32rem;
+                           box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                           transition: all .25s ease-in-out;
+
+                           .close-icon {
+                              color: $delete_error;
+                           }
+
+                           &:hover {
+                              background-color: $light2;
+                           }
+                        }
+
+                        .search-emoji {
+                           grid-column-start: 1;
+                           grid-column-end: 7;
+                           grid-row-start: 1;
+                           grid-row-end: 3;
+                           margin: .5rem;
+                           padding: .5rem;
+                           background-color: $light2;
+                           box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+                           border-radius: .32rem;
+                           color: $light3;
+                           font-weight: 600;
+
+                           &::placeholder {
+                              color: $light3;
+                              opacity: .85;
+                           }
+                        }  
+
+                        .emoji {
+                           @include flexDisplay(center, center, row);
+                           height: fit-content;
+                           font-size: 1.15rem;
+                        }
+                     }
+
+                     .msgFile-error {
+                        text-align: center;
+                        margin: .25rem .5rem;
+                        border-radius: .32rem;
+                        padding: .25rem;
+                        color: $light1;
+                        font-size: .85rem;
+                        background-color: $delete_error;
+                     }
+
+                     .dmMsgInput-wrapper {
+                        @include flexDisplay(center, flex-start, row);
+                        gap: .5rem;
+                        padding: .25rem;
+                        margin: .5rem;
+                        border-radius: .32rem;
+                        background-color: $light1;
+                        height: fit-content;
+                        
+                        .addFile-btn, .addEmoji-btn {
+                           @include flexDisplay(center, center, row);
+                           border-radius: .32rem;
+                           background-color: $light3;
+                           padding: .25rem;
+                           transition: all .25s ease-out;
+                           cursor: pointer;
+
+                           .addFile-icon, .addEmoji-icon {
+                              color: $light1;
+                              font-size: 1.05rem;
+                              font-weight: bolder;
+                           }
+
+                           &:hover {
+                              background-color: rgba(114,89,70, .9);
+                           }
+                        }
+
+                        .dmMsg-input {
+                           flex: 1;
+                           background-color: transparent;
+                           outline: none;
+                           border: none;
+                           border-left: 1px solid rgba(114,89,70, .5);
+                           border-right: 1px solid rgba(114,89,70, .5);
+                           border-radius: .32rem;
+                           color: $light3;
+                           font-weight: 500;
+                           padding: .25rem;
+                           resize: none;
+
+                           &::placeholder {
+                              opacity: .8;
+                              color: $light3;
+                           }
+                        }
+                     }
+                  }
+
+                  @media screen and (max-width: 425px) {
+                     .dmMsg-container .msg-list .msg-container .msg-head .msgHead-main {
+
+                        .dmIcon-wrapper .dm-icon {
+                           width: 4.5rem;
+                           height: 4.5rem;
+                           border: 3.75px solid $light1;
+                        }
+
+                        .dmRoom-participants {
+                           font-size: 1.25rem;
+                        }
+                     }
+                  }
+               }
+            }
+
+            @media screen and (max-width: 768px) {
+               flex-direction: column-reverse;
+   
+               .dmMgmt-roomMgmt-container {
+                  height: 30%;
+                  width: 100%;
+                  box-shadow: rgba(0, 0, 0, 0.15) 1.95px -1.95px 2.6px, rgba(0, 0, 0, 0.15) -1.95px 1.95px 2.6px;
+
+                  .dmMgmt-wrapper {
+
+                     .dm-head {
+                        .dm-popup {
+                           top: -.75rem;
+                           right: -.25rem;
+                        }
+                     }
+                  }
+                  
+                  .roomMgmt-wrapper .roomContents-container .createMainRoomPopup {
+                     top: 5rem;
+                     right: 13.85rem;
+                  }
+               }
+
+               .activity-room-container {
+                  height: 70%;
+                  .activity-wrapper {
+                     
+                     .activity-head {
+
+                        .friends-categories {
+                           .status {
+                              display: none;
+                           }
+                           .burger {
+                              display: flex;
+                           }
+                        }
+                     }
+
+                     .activity-contents {
+
+                        .friendList-wrapper {
+                           
+                           .friend-list {
+                              margin: 0rem .5rem;
+
+                              .friend {
+                                 width: 100%;
+                              }
+                           }
+                        }
+                     }
+                  }
+
+                  .dmRoom-wrapper .msgHeadMenu-wrapper .msgHead-menu .pinnedMsg-wrapper {
+                     right: 0;
+                     top: 21.25rem;
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   // Footer
+   .footer {
+      box-shadow: rgba(0, 0, 0, 0.07) 0px -1px 1px, rgba(0, 0, 0, 0.07) 0px -2px 2px, rgba(0, 0, 0, 0.07) 0px -4px 4px;
+      border-radius: .32rem;
+      width: 100%;
+      z-index: 10;
+      transform: translateX(-50px);
+      opacity: 0;
+
+      .footer-wrapper {
+         @include flexDisplay(center, flex-end, row);
+         padding: .5rem .5rem 0rem 0rem;
+         gap: 1rem;
+
+         .setting-icon, .help-icon {
+            color: $light3;
+            font-size: 1.25rem;
+            transition: all .25s ease-in-out;
+
+            &:hover {
+               color: $dark2;
+               transform: scale(1.1);
+            }
+         }
+      }
+   }
+
+   @media screen and (max-width: 768px) {
+      padding: .45rem;
+   }
+}
